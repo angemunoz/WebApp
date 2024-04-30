@@ -1,0 +1,164 @@
+<!-- CSRF Protection from https://wtforms.readthedocs.io/en/2.3.x/csrf/ -->
+
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Add thought record</h1>
+
+<form method="POST" action="" id="thoughtRecordForm">
+    {{ form.csrf_token }}
+    {{ form.hidden_tag() }}
+
+    <p>{{ form.dateTR.label }}</p>
+    <p>{{ form.dateTR (class="addDateBox")}}</p>
+        {% for error in form.dateTR.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+    <p>{{ form.timeTR.label }}</p>
+    <p>{{ form.timeTR (class="addTimeBox")}}</p>
+        {% for error in form.timeTR.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+    <p>{{ form.situation.label }}</p>
+    <p class="small">Please describe the events leading to the thought</p>
+    <p>{{ form.situation (class="addThoughtRecordBox")}}</p>
+        {% for error in form.situation.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+    <p>{{ form.thought.label }}</p>
+    <p class="small">Please describe the intrusive thought</p>
+    <p>{{ form.thought (class="addThoughtRecordBox")}}</p>
+        {% for error in form.thought.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+    <p>{{ form.feelings.label }}</p>
+    <p class="small">Please describe how you felt after the intrusive thought</p>
+    <p>{{ form.feelings (class="addThoughtRecordBox")}}</p>
+        {% for error in form.feelings.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+    <p>{{ form.feelingsStrength.label }}</p>
+    <p class="small">Please select how strong those feelings were, with 0 meaning not at all and 10 the strongest possible</p>
+    {{ form.feelingsStrength (class="addRadioBox") }}<br>
+        {% for error in form.feelings.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+    <p>{{ form.forEvidence.label }}</p>
+    <p class="small">Please provide evidence that the intrussive thought is a real danger</p>
+    <p>{{ form.forEvidence (class="addThoughtRecordBox")}}</p>
+        {% for error in form.forEvidence.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+    <p>{{ form.forEvidenceStrength.label }}</p>
+    <p class="small">Please select how much you believe the evidence, with 0 meaning not at all and 10 completelly</p>
+    {{ form.forEvidenceStrength (class="addRadioBox")}}<br>
+        {% for error in form.forEvidenceStrength.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+    <p>{{ form.againstEvidence.label }}</p>
+    <p class="small">Please provide evidence that the intrusive thought is just a thought</p>
+    <p>{{ form.againstEvidence (class="addThoughtRecordBox")}}</p>
+        {% for error in form.againstEvidence.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+    <p>{{ form.againstEvidenceStrength.label }}</p>
+    <p class="small">Please select how much you believe the evidence, with 0 meaning not at all and 10 completelly</p>
+    {{ form.againstEvidenceStrength (class="addRadioBox")}}<br>
+        {% for error in form.againstEvidenceStrength.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+    <p>{{ form.altThought.label }}</p>
+    <p class="small">Please think of a different thought for the situation described</p>
+    <p>{{ form.altThought (class="addThoughtRecordBox")}}</p>
+        {% for error in form.altThought.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+    <p>{{ form.altFeelings.label }}</p>
+    <p class="small">Please describe how you felt after completing the questions above</p>
+    <p>{{ form.altFeelings (class="addThoughtRecordBox")}}</p>
+        {% for error in form.altFeelings.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+    <p>{{ form.altFeelingsStrength.label }}</p>
+    <p class="small">Please select how strong those feelings were, with 0 meaning not at all and 10 the strongest possible</p>
+    {{ form.altFeelingsStrength (class="addRadioBox")}}<br>
+        {% for error in form.altFeelingsStrength.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}            
+
+    <!-- Submit button -->
+    <p style="font-size: 1.1250em"><input type="submit" name="save" value="Submit thought record" class="greenButton">
+    {% if ThoughtRecordInput != None %}
+        <a href="{{ url_for('addSafetyBehaviour', thought_id=thoughtRecordInput.id, createdby_id=createdby_id)}}">
+            <input type="submit" name="save" value="Submit and add safety behaviour" class="greenButton">
+        </a></p>
+    {% endif %}
+</form>
+
+    <script>
+        var formSaved = false;
+
+        // Determine if any of the "save" buttons were clicked
+        // Same as the dyslexia toggle
+        document.getElementById('thoughtRecordForm').addEventListener('submit', function (event) {
+            var clickedButton = event.submitter;
+
+            // Check if the "Submit thought record" button was clicked
+            if (clickedButton.name === 'save') {
+                formSaved = true;
+            }
+            if (clickedButton.name === 'saveContinue') {
+                formSaved = true;
+            }
+        });
+
+        // event listener to check for save button via formSaved
+        window.addEventListener('beforeunload', function (event) {
+            if (!formSaved) {
+                event.preventDefault();
+                event.returnValue = 'You have unsaved changes. Are you sure you want to leave this page?';
+            }
+        });
+    </script>
+
+{% endblock content %}
+
+

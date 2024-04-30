@@ -1,0 +1,37 @@
+<!-- CSRF Protection from https://wtforms.readthedocs.io/en/2.3.x/csrf/ -->
+{% extends "layout.html" %}
+{% block content %}
+
+<p>Please fill in the form below to sign up</p>
+
+<!-- Form to signUp. More on models, forms and routes-->
+<form method="POST" action="">
+    {{ form.csrf_token }}
+    <!-- Code to add placeholders so users get help while filling in the form
+    adapted from  Explore Flask
+    accessed 02-09-23
+    https://exploreflask.com/en/latest/forms.html
+    [[{{ form.email.label }}: {{ form.email(placeholder='yourname@email.com') }}]]--> 
+    {{ form.username.label }}<br>{{ form.username (class_="signUpBox")}}<br>
+    <!-- end of referenced code.-->
+    {% for error in form.username.errors %}<span style="color: red;">[{{ error }}]</span><br>{% endfor %}
+    {{ form.name.label }}<br>{{ form.name (class_="signUpBox")}}<br>
+    {% for error in form.name.errors %}<span style="color: red;">[{{ error }}]</span><br>{% endfor %}
+    {{ form.email.label }}<br>{{ form.email (class_="signUpBox")}}<br>
+    {% for error in form.email.errors %}<span style="color: red;">[{{ error }}]</span><br>{% endfor %}
+    {{ form.password.label }}<br>
+    {{ form.password (class_="signUpBox")}}<br>
+    {% for error in form.password.errors %}<span style="color: red;">[{{ error }}]</span><br>{% endfor %}
+    {{ form.confirmPassword.label }}<br>{{ form.confirmPassword (class_="signUpBox")}}<br>
+    {% for error in form.confirmPassword.errors %}<span style="color: red;">[{{ error }}]</span><br>{% endfor %}
+    {{ form.disclaimer.label }}
+    <p>By clicking this box you acknowledge that you understand the purpose of this site is to be a tool used in conjunction with professional therapy, not as a substitute of it.</p>
+    {{ form.disclaimer (class_="addCheckBox")}}<br>
+    {% for error in form.disclaimer.errors %}<span style="color: red;">[{{ error }}]</span><br>{% endfor %}
+
+    <!-- Submit button -->
+    <input type="submit" value="Sign Up" class="greenButton">
+</form>
+
+
+{% endblock content %}

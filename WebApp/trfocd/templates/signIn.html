@@ -1,0 +1,20 @@
+<!-- CSRF Protection from https://wtforms.readthedocs.io/en/2.3.x/csrf/ -->
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- Form to log in. More on models, forms and routes-->
+<form method="POST" action="">
+    {{ form.csrf_token }}
+    {{ form.email.label }}<br>{{ form.email }}<br>
+
+    {{ form.password.label }}<br>{{ form.password }}<br>
+
+    {% if error %}
+        <p class=error>[{{ error }}]</p>
+    {% endif %}
+      
+    <!-- Submit button -->
+    <input type="submit" value="Log in" class="greenButton">
+</form>
+
+{% endblock content %}

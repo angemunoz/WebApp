@@ -1,0 +1,70 @@
+<!-- CSRF Protection from https://wtforms.readthedocs.io/en/2.3.x/csrf/ -->
+
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Daily Page</h1>
+
+    <!-- Add Thought Record and Safety Behaviour -->
+    <p><a href="{{ url_for('addThoughtRecord')}}"><button class="greenButton">Add new thought record</button></a>&nbsp
+    <a href="{{ url_for('selectThoughtRecord')}}"><button class="greenButton">Add new safety behaviour</button></a></p>
+ 
+        <!-- Datepicker -->
+        <form method="POST">
+            {{ form.csrf_token }}
+            {{ form.hidden_tag() }}
+            <p>Select the date you want to view</p><br>
+            <p>{{ form.selectDate() }}
+            
+            <input type="submit" value="Filter" class="greenButton"></form></p>
+        </form>
+
+        <!-- Check if scatterHtml is defined -->
+        {% if scatterHtml is defined %}
+            <!-- Scatterplot -->
+            {{ scatterHtml | safe }}
+            <br>
+        {% else %}
+            <!-- Display "No data" message -->
+            <p>No data for this date</p>
+        {% endif %}    
+
+        <!-- Check if donut plots are defined -->
+        {% if donutBUHtml or donutBOPHtml is defined %}
+            <!-- Container for donut plots -->
+            <div class="grid-container">
+                <div>{{ donutBUHtml | safe }}</div>
+                <div>{{ donutBOPHtml | safe }}</div>
+                <div>{{ donutCombinedHtml | safe }}</div>
+            </div>
+            
+        {% else %}
+            
+        {% endif %}
+        <br>
+
+        {% if thoughtRecordList %}
+        {% for thought in thoughtRecordList %}
+            <h2>{{ thought.thought }}</h2>
+            <a href="{{ url_for('addSafetyBehaviour', thought_id=thought.id, createdby_id=thought.userIdforTR)}}"><button class="greenButton">Add new safety behaviour</button></a>
+            {% for action in safetyBehaviourList[thought.id]%}
+                 <p>{{ action.safetyBehaviour }}</p>
+            {% endfor %}
+        {% endfor %}
+        <br>
+
+   {% else %}
+        <p>No data for this date</p>
+    {% endif %}
+
+  
+<!-- Removed feature as it crowded the daily page. 
+    A table displaying the database elements
+    
+    {% if table_html is defined %}
+        {{ table_html | safe }}
+    {% else %}
+        <p>No table data available</p>
+    {% endif %}   
+        <br>-->
+</div>
+{% endblock content %}

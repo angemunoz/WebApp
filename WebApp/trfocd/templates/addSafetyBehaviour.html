@@ -1,0 +1,130 @@
+<!-- CSRF Protection from https://wtforms.readthedocs.io/en/2.3.x/csrf/ -->
+
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+    <h1>Add safety behaviour</h1>
+
+    <form method="POST" action="" id="safetyBehaviourForm">
+        {{ form.csrf_token }}
+        {{ form.hidden_tag() }}
+        
+        <p>{{ form.dateSB.label }}</p>
+        <p>{{ form.dateSB (class="addTimeBox")}}</p>
+        {% for error in form.dateSB.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+        <p>{{ form.timeSB.label }}</p>
+        <p>{{ form.timeSB (class="addTimeBox")}}</p>
+        {% for error in form.timeSB.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+        <p>{{ form.safetyBehaviour.label }}</p>
+        <p class="smallBox">{{ recogThought.thought }}</p>
+        <p class="small">Please describe the safety behaviour</p>
+        <p>{{ form.safetyBehaviour (class="addSafetyBehaviourBox")}}</p>
+        {% for error in form.safetyBehaviour.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+        <p>Time you have spend performing this safety behaviour</p>
+        <p>{{ form.durationSafetyBhr.label }}        
+        {{ form.durationSafetyBmin.label }}</p>
+        <p>{{ form.durationSafetyBhr (class="addDropdownBox")}}
+        {{ form.durationSafetyBmin (class="addDropdownBox")}}</p>
+        {% for error in form.durationSafetyBhr.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %} 
+        
+        {% for error in form.durationSafetyBhr.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}    
+        {% for error in form.durationSafetyBmin.errors %}
+            <span style="color: red;">
+                    [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+        <p>Time other person has spend performing this safety behaviour</p>
+        <p>{{ form.durationSafetyBOPhr.label }} {{ form.durationSafetyBOPmin.label }}</p>
+        <p>{{ form.durationSafetyBOPhr (class="addDropdownBox")}}  {{ form.durationSafetyBOPmin (class="addDropdownBox")}}</p>
+        
+        {% for error in form.durationSafetyBOPhr.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+           
+        {% for error in form.durationSafetyBOPhr.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+        <p>{{ form.thoughtAfterSB.label }}</p>
+        <p class="smallBox">{{ recogThought.altThought }}</p>
+        <p class="small">Please describe how your thought changed after completing the safety behaviour</p>
+        <p>{{ form.thoughtAfterSB (class="addSafetyBehaviourBox") }}</p>
+        {% for error in form.thoughtAfterSB.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+        <p>{{ form.feelingsAfterSB.label }}</p>
+        <p class="smallBox">{{ recogThought.feelings }}</p>
+        <p class="small"></p>Please describe how your feelings changed after completing the safety behaviour<br>
+        <p>{{ form.feelingsAfterSB (class="addSafetyBehaviourBox")}}</p>
+        {% for error in form.feelingsAfterSB.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+        <p>{{ form.feelingsAfterSBStrength.label }}</p>
+        <p class="smallBox">{{ recogThought.feelingsStrength }}</p>
+        <p class="small">Re-rate your feelings after completing the safety behaviour</p>
+        <p>{{ form.feelingsAfterSBStrength (class="addSafetyBehaviourBox")}}</p>
+        {% for error in form.feelingsAfterSBStrength.errors %}
+            <span style="color: red;">
+                [{{ error }}]
+            </span><br>
+        {% endfor %}
+
+        <!-- Submit button -->
+        <input type="submit" class="greenButton" value="Add Safety Behaviour">
+    </form>
+
+    <script>
+        var formSaved = false;
+    
+        // Function determine if any of the "save" buttons were clicked
+        // Same as the dyslexia toggle
+        document.getElementById('safetyBehaviourForm').addEventListener('submit', function (event) {
+            formSaved = true;
+        });
+    
+        // Check if the "Submit thought record" button was clicked
+        // Same as the dyslexia toggle
+        window.addEventListener('beforeunload', function (event) {
+            if (!formSaved) {
+                event.preventDefault();
+                event.returnValue = 'You have unsaved changes. Are you sure you want to leave this page?';
+            }
+        });
+    </script>
+
+{% endblock content %}

@@ -1,0 +1,42 @@
+<!-- CSRF Protection from https://wtforms.readthedocs.io/en/2.3.x/csrf/ -->
+
+{% extends "layout.html" %}
+{% block content %}
+
+    <!-- Date Picker -->
+    <form method="POST">
+        <form method="POST">
+            {{ form.csrf_token }}
+            {{ form.hidden_tag() }}
+            {{ form.selectDate.label }}<br>
+            {{ form.selectDate() }}
+            <input type="submit" value="Filter" class="greenButton">
+        </form>
+
+    {% if thoughtRecordList %}
+        {% for thought in thoughtRecordList %}
+            <h2>{{ thought.thought }}</h2>
+            # Route for adding safety behaviours, linked to thought records and user
+
+            <!--Code to link safety behaviours to userID and thoughtRecord
+            adapted from "How to Use Flask-SQLAlchemy to Interact with Databases in a Flask Application" by Dyouri, A.
+            accessed 07-08-23
+            https://www.digitalocean.com/community/tutorials/how-to-use-flask-sqlalchemy-to-interact-with-databases-in-a-flask-application
+            [[<p class="name">
+                <a href="{{ url_for('student', student_id=student.id)}}">
+                    {{ student.firstname }} {{ student.lastname }}
+                </a></p>]]-->
+            <a href="{{ url_for('addSafetyBehaviour', thought_id=thought.id, createdby_id=thought.userIdforTR)}}"><button class="greenButton">Add new safety behaviour</button></a>
+            {% for action in safetyBehaviourDict[thought.id]%}
+                 <p>{{ action.safetyBehaviour }}</p>
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        <p>No data for this date</p>
+    {% endif %}
+        
+
+
+
+
+{% endblock content %}

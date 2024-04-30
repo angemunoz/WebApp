@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- https://flask.palletsprojects.com/en/2.3.x/patterns/templateinheritance/ -->
+    <!-- Page information -->
+    <meta charset="utf-8">
+
+    <title>OCD Thought Record</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div id="header" class="head">
+        <div class="left-container">
+            {% if current_user.is_authenticated %}
+                <div class="dropdown">
+                    <button class="dropdownButton" onclick="toggleDropdown()">Navigation</button>
+                    <div class="dropdown-content" id="myDropdown">
+                        <a href="{{ url_for('home')}}">Home</a>
+                        <a href="{{ url_for('dailyPage')}}">Daily Page</a>
+                        <a href="{{ url_for('progressPage')}}">Progress Page</a>
+                    </div>
+                </div>
+        
+                <div class="button-container" id="button-menu">
+                    <a href="{{ url_for('home')}}"><button class="greenButton">Home</button></a>
+                    <a href="{{ url_for('dailyPage')}}"><button class="greenButton">Daily Page</button></a>
+                    <a href="{{ url_for('progressPage')}}"><button class="greenButton">Progress Page</button></a>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="right-container">
+
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('logOut')}}"><button class="redButton">Sign out</button></a>&nbsp
+            {% else %}
+                <a href="{{ url_for('signIn')}}"><button class="greenButton">Sign in</button></a>&nbsp
+                <a href="{{ url_for('signUp')}}"><button class="greenButton">Sign up</button></a>
+            {% endif %}
+        </div>
+
+        <div class="checkbox-container">
+            <!-- toggle for dyslexia background -->
+            <label for="Dyslexia Background" class="custom-checkbox-label">Dyslexia Background</label>
+            <input type="checkbox" id="Dyslexia Background" class="custom-checkbox">
+        </div>
+
+    </div>
+
+    <script>
+        // Code implemented the checkbox that switches between white and peach colour
+        // adapted from "addEventListener and changing background color" by honmanyau
+        // accessed 25-08-23
+        // https://forum.freecodecamp.org/t/addeventlistener-and-changing-background-color/193023/2
+        // [[ var button = document.querySelector("button");
+        //    button.addEventListener("click", function() {
+        //        const curColour = document.body.style.backgroundColor;
+        //        document.body.style.backgroundColor = curColour === 'red' ? 'blue' : 'red';}); ]]
+        function toggleCheckbox() {
+            const checkbox = document.getElementById("Dyslexia Background");
+            document.body.style.backgroundColor = checkbox.checked ? "#EDD1B0" : "white";
+        //end of referenced code
+
+        // Code to retrieve the checkbox state from local storage and set it on page load
+        // adapted from "Change background color permanently [duplicate]" by bgauryy
+        // accessed 25-08-23
+        // https://stackoverflow.com/questions/41990888/change-background-color-permanently
+        // [[<script language="javascript"> 
+        //    window.onload = function (){ 
+        //    newBackgroundColor(localStorage.getItem("someConstKey")); } 
+        //    function newBackgroundColor(color) { 
+        //    if (color){ 
+        //    document.bgColor = color; 
+        //    document.colorForm.selectedcolor.value = color; 
+        //    localStorage.setItem("someConstKey", color); } }]]
+            
+            // Save the checkbox state in local storage
+            localStorage.setItem("checkboxState", checkbox.checked);
+        }
+    
+        // attach the function to the dyslexia toggle event
+        document.getElementById("Dyslexia Background").addEventListener("change", toggleCheckbox);
+    
+        // retrieve the toggle state
+        const savedCheckboxState = localStorage.getItem("checkboxState");
+        if (savedCheckboxState === "true") {
+            document.getElementById("Dyslexia Background").checked = true;
+            toggleCheckbox();
+        }
+        // end of referenced code
+    </script>
+    
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>Please be advised that this website is not designed as a substitute for therapy</p>
+    </footer>
+
+
+    
+</body>
+</html>

@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Not Authorized</h1>
+
+    <p>Access to this page is restricted.</p>
+    <p>Please click here to return to <a href="{{ url_for('home')}}"><button class="greenButton">Home</button></a></p>
+
+{% endblock content %}

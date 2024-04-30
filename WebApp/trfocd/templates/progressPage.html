@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Progress Page</h1>
+
+    <a href="{{ url_for('addThoughtRecord') }}"><button class="greenButton">Add new thought record</button></a>&nbsp;
+    <a href="{{ url_for('selectThoughtRecord') }}"><button class="greenButton">Add new safety behaviour</button></a><br><br>
+
+    <!-- Buttons for toggling between views -->
+    <button id="weeklyToggle" class="greenButton">Weekly View</button>
+    <button id="monthlyToggle" class="greenButton">Monthly View</button>
+    <button id="yearlyToggle" class="greenButton">Yearly View</button>
+    
+
+    <form method="POST">
+        <form method="POST">
+            {{ form.csrf_token }}
+            {{ form.hidden_tag() }}
+            <p>Select any date on the week/month/year you want to view. All graphs will update.</p>
+            <p>{{ form.selectDate() }}
+            <!-- date picker -->
+            <input type="submit" value="Filter" class="greenButton"></p>
+        </form>
+
+    <!-- Weekly Area -->
+    <div id="weeklyView" style="display: none;">
+        <!-- Check if WeekAreaHtml is defined -->
+        {% if WeekAreaHtml is defined %}
+            <!-- Week Area plot -->
+            {{ WeekAreaHtml | safe }}
+            <br>
+        {% else %}
+            <!-- Display "No data" message -->
+            <p>No data for this week</p>
+        {% endif %}
+        
+        {% if WeeklydonutBUHtml is defined %}
+            <!-- Grid container for donut plots -->
+            <div class="grid-container">
+                <div>{{ WeeklydonutBUHtml | safe }}</div>
+                <div>{{ WeeklydonutBOPHtml | safe }}</div>
+                <div>{{ WeeklydonutCombinedHtml | safe }}</div>
+            </div>
+        {% else %}
+            
+        {% endif %}
+    </div>
+    
+    <!-- Monthly Area -->
+    <div id="monthlyView" style="display: none;">
+        
+        {% if MonthAreaHtml is defined %}
+            
+            {{ MonthAreaHtml | safe }}
+            <br>
+        {% else %}
+            
+            <p>No data for this month</p>
+        {% endif %}
+            
+            {% if MonthlydonutBUHtml is defined %}
+            
+            <div class="grid-container">
+                <div>{{ MonthlydonutBUHtml | safe }}</div>
+                <div>{{ MonthlydonutBOPHtml | safe }}</div>
+                <div>{{ MonthlydonutCombinedHtml | safe }}</div>
+            </div>
+        {% else %}
+
+        {% endif %}
+    </div>
+
+    <!-- Yearly Area -->
+    <div id="yearlyView" style="display: none;">
+        
+        {% if YearAreaHtml is defined %}
+            {{ YearAreaHtml | safe }}
+            <br>
+        {% else %}
+           
+            <p>No data for this year</p>
+        {% endif %}
+
+            
+            {% if MonthlydonutBUHtml is defined %}
+            
+            <div class="grid-container">
+                <div>{{ YearlydonutBUHtml | safe }}</div>
+                <div>{{ YearlydonutBOPHtml | safe }}</div>
+                <div>{{ YearlydonutCombinedHtml | safe }}</div>
+            </div>
+        {% else %}
+
+        {% endif %}
+    </div>
+
+    <script>
+
+        // JavaScript to toggle between Weekly, Monthly, and Yearly views
+        const weeklyToggle = document.getElementById('weeklyToggle');
+        const monthlyToggle = document.getElementById('monthlyToggle');
+        const yearlyToggle = document.getElementById('yearlyToggle');
+        
+        function hideAllViews() {
+            weeklyView.style.display = 'none';
+            monthlyView.style.display = 'none';
+            yearlyView.style.display = 'none';
+        }
+        
+        // show weekly plots
+        weeklyToggle.addEventListener('click', () => {
+            hideAllViews();
+            weeklyView.style.display = 'block';
+        });
+        
+        // show monthly plots
+        monthlyToggle.addEventListener('click', () => {
+            hideAllViews();
+            monthlyView.style.display = 'block';
+        });
+        
+        // show yearly plots
+        yearlyToggle.addEventListener('click', () => {
+            hideAllViews();
+            yearlyView.style.display = 'block';
+        });
+
+    </script>
+    
+{% endblock content %}

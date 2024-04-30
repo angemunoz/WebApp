@@ -1,0 +1,14 @@
+flask
+Flask-SQLAlchemy
+SQLAlchemy
+Flask-PyMySQL
+PyMySQL
+Flask-Login
+Flask-WTF
+WTForms
+email-validator
+Werkzeug
+pandas
+plotly.express
+plotly
+     

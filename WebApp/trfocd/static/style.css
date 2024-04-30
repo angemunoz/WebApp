@@ -1,0 +1,233 @@
+/* Global */
+html *{
+    font-family: Arial, sans-serif;
+    font-size: 	1.1250em;
+    line-height: 1.5;
+    text-align: left;
+    position: relative;
+}
+
+/* Header */
+.head{
+
+    padding-bottom: 7px;
+    border-bottom: 2px solid #808080;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Footer */
+footer{
+    bottom: 3px;
+    padding-top: 7px;
+    border-top: 2px solid #808080;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    position: relative;
+}
+
+/* For title 1 */
+h1{
+    text-align: center;
+    font-size: calc(1.5rem + 2vw);
+    color: black;
+}
+
+/* For paragraph */
+p{
+    text-indent: 1em;
+}
+
+/* For link */
+a{
+    font-size: 	1.1250em;
+}
+
+/* For paragraph-error */
+p.error{
+    color: red; 
+}
+
+/* For paragraph-important */
+p.important{
+    text-indent: 1em;
+    border: solid;
+    border-width: 2px;
+    border-color: #D55E00;
+    width: fit-content;
+}
+
+/* For paragraph-small */
+p.small{
+    text-indent: 1em;
+    font-size: 	1.12em;
+}
+
+/* For paragraph-small in box */
+p.smallBox{
+    text-indent: 0.2em;
+    border:solid;
+    border-width: 2px;
+    border-color: #808080;
+    width: fit-content;
+}
+
+/* Style the red buttons */
+.redButton{
+    text-align: center;
+    background-color: transparent;
+    border: 2%;
+    border-color: #D55E00;
+}
+
+/* Red buttons on hover*/
+.redButton:hover{
+    background-color: #808080;
+}
+
+/* Style the green buttons */
+.greenButton{
+    text-align: center;
+    background-color: transparent;
+    border: 2%;
+    border-color: #009E73;
+}
+
+/* Green buttons on hover*/
+.greenButton:hover{
+    background-color: #808080;
+}
+
+/* For radio boxes*/
+.addRadioBox{
+    text-indent: 0.2em;
+}
+
+/* For free text fields in safety behaviours */
+.addSafetyBehaviourBox {
+    text-align: left;
+    width: 90%;
+    border-radius: 12px;
+    padding: 12px 12px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    resize: none;
+    }
+
+/* Style free text fields in thought records */
+.addThoughtRecordBox{
+    text-align: left;
+    width: 90%;
+    border-radius: 12px;
+    padding: 12px 12px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    resize: none;
+}
+
+/* For donut plots */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; 
+}
+
+
+/* Code to turn grid horizontal for small screens */
+/* adapted from "How to change the width of the header & make it responsive too" by Gideon, F. */
+/* accessed: 30-08-23*/
+/* https://stackoverflow.com/questions/68132527/how-to-change-the-width-of-the-header-make-it-responsive-too */
+/* @media(max-width:500px){  */
+/* // The Width Of The Header Will Be whatEverYouWant When The Screen Width Is 500px */
+/* header{ */
+/*      width:whatEverWidthYouWant } */
+@media (max-width: 800px) {
+    .grid-container {
+        grid-template-columns: 1fr; 
+        grid-auto-rows: 3; 
+    }
+}
+/* end of referenced code */
+
+/* Sign Up/Sign In/Log Out container */
+.right-container {
+    float: right; 
+    width: 50%;  
+    text-align: right; 
+    padding: 10px; 
+    box-sizing: border-box; 
+}
+
+/* Navigation container */
+.left-container {
+    float: left;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 50%;
+}
+
+/* drop down content styles */
+.dropdown-content {
+    display: none;
+    position: fixed;
+    background-color: lightgrey;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* drop down link styles */
+.dropdown-content a {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+/* show drop down options when clicked/moused over */
+.dropdownButton:hover + .dropdown-content,
+.dropdown-content:hover {
+    display: block;
+}
+
+/* hide buttons for drop down */
+@media (max-width: 800px) {
+    .dropdown {
+        display: block; 
+    }
+    .button-container {
+        display: none; 
+    }
+}
+
+/* hide drop down for buttons */
+@media (min-width: 801px) {
+    .dropdown {
+        display: none; 
+    }
+    .button-container {
+
+        display: block;
+    }
+}
+
+/* Style the dyslexia background toggle */
+.checkbox-container {
+    float: right; 
+    margin-right: 20px; 
+}
+
+/* Style the dropdown button */
+.dropdownButton{
+    text-align: center;
+    background-color: transparent;
+    border: 2%;
+    border-color: #009E73;
+}
+
+/* For links */
+a{    
+    font-size: 1em;
+}
